@@ -1,0 +1,9 @@
+RUBT Client write up
+
+This client takes in 2 arguments, the first specifies the torrent file torrent file to take in and the second specifies the file to write to. The client opens up the torrent file and uses the classes given in phase 1 to extract data. Then the client starts the GUI and sends a GET request to the tracker. The client captures the tracker's reply and parses it for peers by capturing the text output of the ToolKit class. Then, it begins creating peer class object, which take care of handshaking and message sending and receiving, and runs them on their own threads. After all peers have begun running, the client starts the handshakeListener class, which opens a server socket for other peers to connect to us with. Upon a successful connection, the client sends an update to the tracker to advertise a different port. The client then waits for user input to cease execution. Upon completion of download and exiting, the client writes whatever has been downloaded to storage.
+
+The GUI shows a progress bar of the download, a test area of messages for the user, and a quit button.
+
+The peer class handles handshakes by sending a handshake and receiving and parsing one from the outside peer. After this, it waits for a bitfield and then starts sending interests and requests messages until the user terminates execution. The peer starts off choked and sends an interest message until it gets an unchoked message. Then, it requests pieces the local client does not have. If the peer receives a choke message, it begins sending interest messages.
+
+The handshakeListener opens a server socket for outside peers to connect to. Upon connection, the handshakeListener exchanges handshakes with the outside peer, sends the bitfield for the client, and then starts a thread for the peer. This time, the peer class does not wait for a bitfield, creating an empty one instead for the peer, and then exchanges messages.
