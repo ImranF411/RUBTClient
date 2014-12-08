@@ -39,6 +39,8 @@ public class GUI extends JFrame{
 		quitButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				output.append("Quitting...\n");
+				Peer.quit();
 				RUBTClient.quit();	
 			}
 		});
@@ -81,7 +83,7 @@ public class GUI extends JFrame{
 	/**
 	 * Closes the GUI window.
 	 */
-	public static void close() {
+	public void close() {
 	    WindowEvent winClosingEvent = new WindowEvent( this, WindowEvent.WINDOW_CLOSING );
 	    Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent( winClosingEvent );
 	}

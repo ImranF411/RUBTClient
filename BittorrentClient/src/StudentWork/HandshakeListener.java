@@ -12,7 +12,7 @@ import java.net.Socket;
  * 
  */
 public class HandshakeListener implements Runnable {
-	boolean quit = false;
+	static boolean quit = false;
 	ServerSocket ss;
 	
 	/* (non-Javadoc)
@@ -136,12 +136,12 @@ public class HandshakeListener implements Runnable {
 	/**
 	 * quits the HandshakeListener
 	 */
-	public void quit(){
+	public static void quit(){
 		quit = true;
-		try {
-			ss.close();
-		} catch (IOException e) {
-		}
+//		try {
+//			ss.close();
+//		} catch (IOException e) {
+//		}
 		return;
 	}
 	

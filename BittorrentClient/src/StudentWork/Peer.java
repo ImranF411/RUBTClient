@@ -99,6 +99,11 @@ public class Peer implements Runnable{
 		
 		GUI.updateOutput("Starting peer "+peerID);
 		
+		if(dos==null || din ==null){
+			GUI.updateOutput("Cannot send/receive from peer "+peerID+".");
+			return;
+		}
+		
 		Handshake shake = new Handshake(RUBTClient.torInfo.info_hash,"TwentyByteStringHere");
 		
 		byte[] incomingShake = new byte[68];

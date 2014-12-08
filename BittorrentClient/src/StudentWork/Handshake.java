@@ -56,7 +56,7 @@ public class Handshake{
 	/**
 	 * @return byte[] of handshake to send.
 	 */
-	byte[] Send(DataOutputStream dos){
+synchronized byte[] Send(DataOutputStream dos){
 		
 		ByteBuffer buffer = ByteBuffer.allocate(baseLength+protocol.length());
 		byte[] reserved = new byte[8];
@@ -72,7 +72,7 @@ public class Handshake{
 			dos.write(buffer.array());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		
 		//info_hash.rewind();

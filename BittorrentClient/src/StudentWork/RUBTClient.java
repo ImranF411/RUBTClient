@@ -223,6 +223,10 @@ public class RUBTClient implements Runnable{
 		peers = new ArrayList<Peer>();
 		peerNames = new ArrayList<String>();
 		for(Iterator getPeerData = peerList.iterator(); getPeerData.hasNext(); ){
+			if(quit){
+				Peer.quit();
+				break;
+			}
 			String seedInfoString = captureText(getPeerData.next());
 			
 			int portIndex=0;
@@ -264,13 +268,15 @@ public class RUBTClient implements Runnable{
 			(new Thread(startPeers.next())).start();
 		} */
 		
-		hl = new HandshakeListener();
-		Thread hlThread = new Thread(hl);
-		hlThread.start();
+		if(!quit){
+			hl = new HandshakeListener();
+			Thread hlThread = new Thread(hl);
+			hlThread.start();
+		}
 		
 		GUI.updateOutput("Click the \"Quit\" button to close the program.");
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		String line = "";
+//		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//		String line = "";
 		
 		boolean once = true;
 		
@@ -304,7 +310,8 @@ public class RUBTClient implements Runnable{
 //			}
 			
 		}
-		hl.quit();
+		
+		HandshakeListener.quit();
 		Peer.quit();
 		close();
 		
@@ -321,8 +328,9 @@ public class RUBTClient implements Runnable{
 			return;
 		}
 		GUI.updateOutput("Successfully wrote file to "+fileName);
-		Thread.sleep(500);
-		GUI.close();
+//		Thread.sleep(500);
+//		GUI.close();
+		GUI.updateOutput("It is now safe to close this window");
 		return;
 	}
 	
